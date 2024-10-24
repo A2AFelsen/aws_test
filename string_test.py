@@ -12,6 +12,11 @@ def my_form():
 def my_form_post():
     text1 = request.form['text1']
     text2 = request.form['text2']
+
+    with open("text_test.txt", "w") as fl:
+        fl.write(f"text1 = {text1}\n")
+        fl.write(f"text2 = {text2}")
+    
     if text1 == text2:
         return "<h1>Plagiarism Detected !</h1>"
     else :
