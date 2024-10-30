@@ -19,7 +19,7 @@ def submit():
 
     with open("login.txt", "w") as fl:
         fl.write(f"Received username: {username}\n")
-        fl.wrote(f"Received password: {password}")
+        fl.write(f"Received password: {password}")
     
     return "Login submitted successfully!"
 
