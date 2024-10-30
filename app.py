@@ -16,6 +16,10 @@ def submit():
     # For now, let's just print it (you could process it here)
     print(f"Received username: {username}")
     print(f"Received password: {password}")
+
+    with open("login.txt", "w") as fl:
+        fl.write(f"Received username: {username}\n")
+        fl.wrote(f"Received password: {password}")
     
     return "Login submitted successfully!"
 
