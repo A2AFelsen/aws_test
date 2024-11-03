@@ -57,6 +57,15 @@ def check_all_tables():
     check_campaign_table()
     check_user_campaign_table()
 
+def get_all_users:
+    check_all_tables()
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+    entries = cursor.execute(f"SELECT * FROM login_table").fetchall()
+    msg = ""
+    for entry in entries:
+        msg += f"{entry[0]}: {entry[1]}"
+        
 
 def add_new_user(user, password):
     check_all_tables()
@@ -106,8 +115,10 @@ def submit():
     with open("submit.txt", "w") as fl:
         fl.write(f"Received username: {username}\n")
         fl.write(f"Received password: {password}\n")
+
+    output, msg = get_all_users()
     
-    return "Login submitted successfully!"
+    return msg
 
 @app.route('/login', methods=['POST'])
 def login():
