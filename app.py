@@ -72,6 +72,7 @@ def add_new_user(user, password):
         sys.exit(1)
     conn.commit()
     conn.close()
+    msg = "New User Added!"
     return True, msg
 
 
