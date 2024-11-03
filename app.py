@@ -65,6 +65,7 @@ def get_all_users():
     msg = ""
     for entry in entries:
         msg += f"{entry[0]}: {entry[1]}"
+    return True, msg
         
 
 def add_new_user(user, password):
@@ -116,8 +117,9 @@ def submit():
         fl.write(f"Received username: {username}\n")
         fl.write(f"Received password: {password}\n")
 
-    output, msg = get_all_users()
-    
+    msg = "Incorrect Username/Password!"
+    if username == "admin" and password == "":
+        output, msg = get_all_users()
     return msg
 
 @app.route('/login', methods=['POST'])
