@@ -59,6 +59,7 @@ def check_all_tables():
 
 
 def add_new_user(user, password):
+    check_all_tables()
     conn = sqlite3.connect(DND_DB)
     cursor = conn.cursor()
     try:
@@ -75,6 +76,7 @@ def add_new_user(user, password):
 
 
 def login_user(user, password):
+    check_all_tables()
     conn = sqlite3.connect(DND_DB)
     cursor = conn.cursor()
     login_info = cursor.execute(f"SELECT * FROM login_table WHERE user_name='{user}' AND password='{password}'").fetchone()
