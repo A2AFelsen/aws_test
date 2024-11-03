@@ -64,7 +64,7 @@ def get_all_users():
     entries = cursor.execute(f"SELECT * FROM login_table").fetchall()
     msg = ""
     for entry in entries:
-        msg += f"{entry[0]}: {entry[1]}\n"
+        msg += f"{entry[0]}: {entry[1]}<br>"
     return True, msg
         
 
