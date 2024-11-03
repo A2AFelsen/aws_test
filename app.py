@@ -57,7 +57,7 @@ def check_all_tables():
     check_campaign_table()
     check_user_campaign_table()
 
-def get_all_users:
+def get_all_users():
     check_all_tables()
     conn = sqlite3.connect(DND_DB)
     cursor = conn.cursor()
