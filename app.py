@@ -118,7 +118,7 @@ def submit():
         fl.write(f"Received password: {password}\n")
 
     msg = "Incorrect Username/Password!"
-    if username == "admin" and password == "":
+    if username == "admin" and password == "admin":
         output, msg = get_all_users()
     return msg
 
