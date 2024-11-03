@@ -1,14 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Form</title>
+</head>
 <body>
-    <h1>DnD Battle Tracker (Coming Soon tm)</h1>
-    <form action="." method="POST">
-        <label for="user_name">User Name:</label>
-        <input type="text" name="user_name" id="user_name"><br>
-        <label for="password">Password:</label>&nbsp;&nbsp;&nbsp;
-        <input type="password" name="password" id="password"><br><br>
-        <input type="submit" name="login"    value="Log In"><br>
-        <input type="submit" name="new-user" value="New User">
+    <h1>Flask Form with Multiple Actions</h1>
+    <form action="/submit" method="post" style="display:inline;">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required><br><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required><br><br>
+        
+        <button type="submit">Submit</button>
     </form>
+
+    <form action="/login" method="post" style="display:inline;">
+        <input type="hidden" name="username" id="username-hidden" value="">
+        <input type="hidden" name="password" id="password-hidden" value="">
+        <button type="submit">Login</button>
+    </form>
+
+    <form action="/new_user" method="post" style="display:inline;">
+        <input type="hidden" name="username" id="username-hidden2" value="">
+        <input type="hidden" name="password" id="password-hidden2" value="">
+        <button type="submit">New User</button>
+    </form>
+
+    <script>
+        // This script ensures the input data from the first form is transferred to the other forms
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', () => {
+                document.getElementById('username-hidden').value = document.getElementById('username').value;
+                document.getElementById('password-hidden').value = document.getElementById('password').value;
+                document.getElementById('username-hidden2').value = document.getElementById('username').value;
+                document.getElementById('password-hidden2').value = document.getElementById('password').value;
+            });
+        });
+    </script>
 </body>
 </html>
