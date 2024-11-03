@@ -17,9 +17,9 @@ def submit():
     print(f"Received username: {username}")
     print(f"Received password: {password}")
 
-    with open("login.txt", "w") as fl:
+    with open("submit.txt", "w") as fl:
         fl.write(f"Received username: {username}\n")
-        fl.write(f"Received password: {password}")
+        fl.write(f"Received password: {password}\n")
     
     return "Login submitted successfully!"
 
@@ -35,7 +35,7 @@ def login():
 
     with open("login.txt", "w") as fl:
         fl.write(f"Received username: {username}\n")
-        fl.write(f"Received password: {password}")
+        fl.write(f"Received password: {password}\n")
     
     return "Login successfully!"
 
@@ -51,7 +51,7 @@ def new_user():
 
     with open("new_user.txt", "w") as fl:
         fl.write(f"Received username: {username}\n")
-        fl.write(f"Received password: {password}")
+        fl.write(f"Received password: {password}\n")
     
     return "New User Created!"
 
