@@ -138,6 +138,9 @@ def login():
 
     output, msg =login_user(username, password)
 
+    if not output:
+        return "Failed to Login"
+
     with open("logged_in.html", "r") as fl:
         content = fl.read()
     
