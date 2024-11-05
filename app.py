@@ -138,7 +138,7 @@ def login():
 
     output, msg =login_user(username, password)
 
-    with open("aws_test/index.html", "r") as fl:
+    with open("logged_in.html", "r") as fl:
         content = fl.read()
     
     return content
