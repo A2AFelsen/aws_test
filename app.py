@@ -137,7 +137,11 @@ def login():
         fl.write(f"Received password: {password}\n")
 
     output, msg =login_user(username, password)
-    return msg
+
+    with open("index.html", "r") as fl:
+        content = fl.read()
+    
+    return content
 
 @app.route('/new_user', methods=['POST'])
 def new_user():
