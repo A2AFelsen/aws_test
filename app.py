@@ -141,9 +141,10 @@ def login():
     if not output:
         return "Failed to Login"
 
-    with open("logged_in.html", "r") as fl:
-        content = fl.read()
+    reutrn render_template('main_menu.html')
     
+    with open("logged_in.html", "r") as fl:
+        content = fl.read()    
     return content
 
 @app.route('/new_user', methods=['POST'])
