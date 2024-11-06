@@ -122,6 +122,11 @@ def submit():
         output, msg = get_all_users()
     return msg
 
+@app.route('/main_menu_submit', methods=['POST'])
+def submit():
+    user_input = request.form.get('user_input_main_menu')
+    return f"You have chosen {user_input}"
+
 @app.route('/login', methods=['POST'])
 def login():
     # Get the form data
