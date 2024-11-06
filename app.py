@@ -123,7 +123,7 @@ def submit():
     return msg
 
 @app.route('/main_menu_submit', methods=['POST'])
-def submit():
+def main_menu_submit():
     user_input = request.form.get('user_input_main_menu')
     return f"You have chosen {user_input}"
 
