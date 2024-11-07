@@ -8,52 +8,38 @@
 </head>
 <body>
     <h1>DnD Battle Tracker Login!</h1>
-    
-    <!-- Username and password fields outside of forms -->
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" required><br><br>
-
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required><br><br>
-    
-    <!-- Admin form with JavaScript to set username and password fields -->
-    <form action="/submit" method="post" id="adminForm" style="display:inline;">
-        <button type="button" onclick="submitForm('adminForm')">Admin</button>
+    <form action="/submit" method="post" style="display:inline;">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required><br><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required><br><br>
+        
+        <button type="submit">Admin</button>
     </form>
 
-    <!-- Login form with JavaScript to set username and password fields -->
-    <form action="/login" method="post" id="loginForm" style="display:inline;">
-        <button type="button" onclick="submitForm('loginForm')">Login</button>
+    <form action="/login" method="post" style="display:inline;">
+        <input type="hidden" name="username" id="username-hidden" value="">
+        <input type="hidden" name="password" id="password-hidden" value="">
+        <button type="submit">Login</button>
     </form>
 
-    <!-- New user form with JavaScript to set username and password fields -->
-    <form action="/new_user" method="post" id="newUserForm" style="display:inline;">
-        <button type="button" onclick="submitForm('newUserForm')">New User</button>
+    <form action="/new_user" method="post" style="display:inline;">
+        <input type="hidden" name="username" id="username-hidden2" value="">
+        <input type="hidden" name="password" id="password-hidden2" value="">
+        <button type="submit">New User</button>
     </form>
 
     <script>
-        function submitForm(formId) {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            const form = document.getElementById(formId);
-
-            // Append username and password to the form dynamically
-            const usernameInput = document.createElement('input');
-            usernameInput.type = 'hidden';
-            usernameInput.name = 'username';
-            usernameInput.value = username;
-            form.appendChild(usernameInput);
-
-            const passwordInput = document.createElement('input');
-            passwordInput.type = 'hidden';
-            passwordInput.name = 'password';
-            passwordInput.value = password;
-            form.appendChild(passwordInput);
-
-            // Submit the form
-            form.submit();
-        }
+        // This script ensures the input data from the first form is transferred to the other forms
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', () => {
+                document.getElementById('username-hidden').value = document.getElementById('username').value;
+                document.getElementById('password-hidden').value = document.getElementById('password').value;
+                document.getElementById('username-hidden2').value = document.getElementById('username').value;
+                document.getElementById('password-hidden2').value = document.getElementById('password').value;
+            });
+        });
     </script>
 </body>
 </html>
