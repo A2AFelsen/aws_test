@@ -120,8 +120,9 @@ def submit():
     msg = "Incorrect Username/Password!"
     if username == "admin" and password == "admin":
         output, msg = get_all_users()
+        msg += f"\n\nusername == {username}\npassword == {password}"
     else:
-        msg += f"\nusername = {username}\npassword = {password}"
+        msg += f"\n\nusername = {username}\npassword = {password}"
     return msg
 
 @app.route('/main_menu_submit', methods=['POST'])
