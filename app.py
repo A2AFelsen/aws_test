@@ -149,7 +149,7 @@ def login():
     if not output:
         return "Failed to Login"
 
-    return render_template('main_menu.html')
+    return render_template('main_menu.html', username=username) 
     
     with open("logged_in.html", "r") as fl:
         content = fl.read()    
