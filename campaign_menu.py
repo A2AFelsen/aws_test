@@ -13,5 +13,5 @@ def create_campaign(campaign, campaign_password, dungeon_master, dm_password):
 
 
 def delete_campaign(campaign, dm_password, username):
-    output, msg = True, "'Delete' Coming Soon!"
+    output, msg = database_manager.delete_campaign(campaign, dm_password)
     return flask.render_template('campaign_action.html', username=username, msg=msg)

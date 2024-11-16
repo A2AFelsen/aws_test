@@ -109,6 +109,24 @@ def add_new_campaign(campaign, player_password, dungeon_master, dm_password):
     return True, msg
 
 
+def delete_campaign(campaign, dm_password):
+    check_all_tables()
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+    output = cursor.execute(f"SELECT dungeon_master, dm_password FROM campaign_table WHERE campaign = '{campaign}'").fetchone()
+    if not output:
+        conn.close()
+        return False, f"ERROR: No Such Campaign '{campaign}'"
+
+    if not dm_password == output[1]:
+        return False, f"ERROR: Incorrect Password!"
+
+    cursor.execute(f"DELETE FROM campaign_table WHERE campaign = '{campaign}'")
+    cursor.commit()
+    conn.close()
+    return True, f"Deleted Campaign '{campaign}'"
+
+
 def login_user(user, password):
     check_all_tables()
     conn = sqlite3.connect(DND_DB)
