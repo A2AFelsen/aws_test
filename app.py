@@ -33,9 +33,9 @@ def main_menu_submit():
     action = request.form.get('action')
 
     if action == 'character':
-        main_menu.character()
+        return main_menu.character()
     elif action == 'campaign':
-        main_menu.campaign()
+        return main_menu.campaign()
 
 
 if __name__ == '__main__':
