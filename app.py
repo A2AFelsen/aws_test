@@ -18,11 +18,13 @@ def submit():
     action = request.form.get('action')
 
     if action == 'admin':
-        login.admin(username, password)
+        return login.admin(username, password)
     elif action == 'login':
-        login.login(username, password)
+        return login.login(username, password)
     elif action == 'new_user':
-        login.new_user(username, password)
+        return login.new_user(username, password)
+    else:
+        return "How did you even get here?"
 
 
 @app.route('/main_menu_submit', methods=['POST'])
