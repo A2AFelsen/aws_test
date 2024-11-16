@@ -79,7 +79,7 @@ def campaign_action_submit():
 
 
 @app.route('/play_submit', methods=['POST'])
-def campaign_action_submit():
+def play_submit():
     username = request.form.get('username')
     action = request.form.get('action')
     return render_template('main_menu.html', username=username)
