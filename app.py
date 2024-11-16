@@ -50,11 +50,14 @@ def campaign_menu_submit():
     dm_password = request.form.get('dm_password')
 
     if action == 'play':
-        return campaign_menu.play_campaign()
+        if dm_password:
+            return campaign_menu.play_campaign(campaign, dm_password, username)
+        else:
+            return campaign_menu.play_campaign(campaign, campaign_password, username)
     elif action == 'create':
         return campaign_menu.create_campaign(campaign, campaign_password, username, dm_password)
     elif action == 'delete':
-        return campaign_menu.delete_campaign()
+        return campaign_menu.delete_campaign(campaign, dm_password, username)
     elif action == 'main_menu':
         return render_template('main_menu.html', username=username)
 
