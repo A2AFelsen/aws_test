@@ -122,7 +122,7 @@ def delete_campaign(campaign, dm_password):
         return False, f"ERROR: Incorrect Password!"
 
     cursor.execute(f"DELETE FROM campaign_table WHERE campaign_name = '{campaign}'")
-    cursor.commit()
+    conn.commit()
     conn.close()
     return True, f"Deleted Campaign '{campaign}'"
 
