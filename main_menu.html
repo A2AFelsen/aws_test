@@ -10,10 +10,8 @@
     <h1>Welcome {{username}}</h1>
     <h2>Choose an Option:</h2>
     <form action="/main_menu_submit" method="post" style="display:inline;">
-        <label>1)Create a Campaign</label><br>
-        <label>2)Log into a Campaign</label><br>
-        <input type="text" name="user_input_main_menu" id="user_input_main_menu" required><br><br>
-        <button type="main_menu_submit">Submit!</button>
+        <button type="submit" name="action" value="character">Character Menu</button><br><br>
+        <button type="submit" name="action" value="campaign">Campaign Menu</button>
     </form>
 </body>
 </html>

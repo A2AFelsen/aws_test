@@ -1,6 +1,7 @@
 # app.py
 from flask import Flask, request, render_template
 import login
+import main_menu
 
 app = Flask(__name__)
 
@@ -29,8 +30,12 @@ def submit():
 
 @app.route('/main_menu_submit', methods=['POST'])
 def main_menu_submit():
-    user_input = request.form.get('user_input_main_menu')
-    return f"You have chosen {user_input}"
+    action = request.form.get('action')
+
+    if action == 'character':
+        main_menu.character()
+    elif action == 'campaign':
+        main_menu.campaign()
 
 
 if __name__ == '__main__':
