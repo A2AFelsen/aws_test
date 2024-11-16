@@ -78,5 +78,12 @@ def campaign_action_submit():
         return render_template('main_menu.html', username=username)
 
 
+@app.route('/play_submit', methods=['POST'])
+def campaign_action_submit():
+    username = request.form.get('username')
+    action = request.form.get('action')
+    return render_template('main_menu.html', username=username)
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

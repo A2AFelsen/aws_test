@@ -4,7 +4,7 @@ import flask
 
 def play_campaign(campaign, password, username):
     output, msg = True, f"'Play' Coming Soon! ({password})"
-    return flask.render_template('campaign_action.html', username=username, msg=msg)
+    return flask.render_template('play.html', username=username, msg=msg)
 
 
 def create_campaign(campaign, campaign_password, dungeon_master, dm_password):

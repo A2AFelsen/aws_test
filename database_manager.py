@@ -56,10 +56,60 @@ def check_user_campaign_table():
     conn.close()
 
 
+def check_character_table():
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS character_table (
+            user_name      TEXT,
+            character_name TEXT,
+            campaign_name  TEXT,
+            max_health     INT,
+            current_health INT,
+            initiative     INT,
+            PRIMARY KEY(user_name, character_name, campaign_name)
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+
+def check_npc_table():
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS npc_table (
+            npc_name   TEXT,
+            max_health INT,
+            PRIMARY KEY(npc_name)
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+
+def check_npc_battle_table():
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS npc_battle_table (
+            npc_name       TEXT,
+            campaign_name  TEXT,
+            current_health INT,
+            initiative     INT
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+
 def check_all_tables():
     check_login_table()
     check_campaign_table()
     check_user_campaign_table()
+    check_character_table()
+    #check_npc_table()
+    #check_npc_battle_table()
 
 
 def get_all_users():
@@ -127,6 +177,10 @@ def delete_campaign(campaign, dm_password):
     return True, f"Deleted Campaign '{campaign}'"
 
 
+def play_campaign(campaign, username):
+    return
+
+
 def login_user(user, password):
     check_all_tables()
     conn = sqlite3.connect(DND_DB)
@@ -139,6 +193,16 @@ def login_user(user, password):
     else:
         msg = "Login Successful!"
         return True, msg
+
+
+def play(user, campaign, character):
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+
+    if campaign:
+        pass
+    elif character:
+        pass
 
 
 def main(drop):
