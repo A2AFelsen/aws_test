@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Menu</title>
+</head>
+<body>
+    <h1>{{username}}'s Character Screen</h1>
+    <h2>Choose an Option:</h2>
+    <form action="/main_menu_submit" method="post" style="display:inline;">
+        <button type="submit" name="action" value="play">Play a Campaign</button><br><br>
+        <button type="submit" name="action" value="create">Create a Campaign</button><br><br>
+        <button type="submit" name="action" value="delete">Delete a Campaign</button><br><br>
+        <button type="submit" name="action" value="main_menu">Return to Main Menu</button>
+    </form>
+</body>
+</html>

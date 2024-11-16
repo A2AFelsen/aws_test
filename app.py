@@ -30,12 +30,13 @@ def submit():
 
 @app.route('/main_menu_submit', methods=['POST'])
 def main_menu_submit():
+    username = request.args.get('username')
     action = request.form.get('action')
 
     if action == 'character':
-        return main_menu.character()
+        return main_menu.character(username)
     elif action == 'campaign':
-        return main_menu.campaign()
+        return main_menu.campaign(username)
 
 
 if __name__ == '__main__':

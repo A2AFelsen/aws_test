@@ -1,6 +1,9 @@
-def character():
+import flask
+
+
+def character(username):
     return 'Going to Character Menu!'
 
 
-def campaign():
-    return 'Going to Campaign Menu!'
+def campaign(username):
+    return flask.render_template('campaign_menu.html', username=username)
