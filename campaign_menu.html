@@ -8,8 +8,17 @@
 </head>
 <body>
     <h1>{{username}}'s Campaign Screen</h1>
-    <h2>Choose an Option:</h2>
     <form action="/campaign_menu_submit" method="post" style="display:inline;">
+        <label for="campaign">Campaign</label><br>
+        <input type="text" name="campaign" id="campaign" required><br><br>
+
+        <label for="campaign_password">Campaign Password:</label><br>
+        <input type="password" name="campaign_password" id="campaign_password" required><br><br>
+
+        <label for="dm_password">DM's Campaign Password:</label><br>
+        <input type="password" name="dm_password" id="dm_password" required><br><br>
+
+        <h2>Choose an Option:</h2>
         <button type="submit" name="action" value="play">Play a Campaign</button><br><br>
         <button type="submit" name="action" value="create">Create a Campaign</button><br><br>
         <button type="submit" name="action" value="delete">Delete a Campaign</button><br><br>

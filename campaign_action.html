@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign {{user_action}}</title>
+</head>
+<body>
+    <h1>{{username}}'s Campaign Screen</h1>
+    <h2>Choose an Option:</h2>
+    <form action="/campaign_action_submit" method="post" style="display:inline;">
+        <button type="submit" name="action" value="return">Return</button><br><br>
+        <button type="submit" name="action" value="main_menu">To Main Menu</button><br><br>
+        <input type="hidden" name="username" value="{{username}}">
+    </form>
+</body>
+</html>

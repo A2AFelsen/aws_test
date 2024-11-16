@@ -45,12 +45,27 @@ def campaign_menu_submit():
     username = request.form.get('username')
     action = request.form.get('action')
 
+    campaign = request.form.get('campaign')
+    campaign_password = request.form.get('campaign_password')
+    dm_password = request.form.get('dm_password')
+
     if action == 'play':
         return campaign_menu.play_campaign()
     elif action == 'create':
-        return campaign_menu.create_campaign()
+        return campaign_menu.create_campaign(campaign, campaign_password, username, dm_password)
     elif action == 'delete':
         return campaign_menu.delete_campaign()
+    elif action == 'main_menu':
+        return render_template('main_menu.html', username=username)
+
+
+@app.route('/campaign_action_submit', methods=['POST'])
+def campaign_menu_submit():
+    username = request.form.get('username')
+    action = request.form.get('action')
+
+    if action == 'return':
+        return render_template('campaign_menu.html', username=username)
     elif action == 'main_menu':
         return render_template('main_menu.html', username=username)
 
