@@ -52,7 +52,7 @@ def campaign_menu_submit():
     elif action == 'delete':
         return campaign_menu.delete_campaign()
     elif action == 'main_menu':
-        return campaign_menu.return_to_main_menu()
+        return render_template('main_menu.html', username=username)
 
 
 if __name__ == '__main__':
