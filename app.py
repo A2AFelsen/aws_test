@@ -30,7 +30,7 @@ def submit():
 
 @app.route('/main_menu_submit', methods=['POST'])
 def main_menu_submit():
-    username = request.args.get('username')
+    username = request.form.get('username')
     action = request.form.get('action')
 
     if action == 'character':
