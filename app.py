@@ -60,7 +60,7 @@ def campaign_menu_submit():
 
 
 @app.route('/campaign_action_submit', methods=['POST'])
-def campaign_menu_submit():
+def campaign_action_submit():
     username = request.form.get('username')
     action = request.form.get('action')
 
