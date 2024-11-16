@@ -1,6 +1,15 @@
 import sqlite3
+import argparse
 
 DND_DB = "dnd.db"
+
+
+def drop_table(table):
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+    cursor.execute(f'''DROP TABLE {table}''')
+    conn.commit()
+    conn.close()
 
 
 def check_login_table():
@@ -22,8 +31,10 @@ def check_campaign_table():
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS campaign_table (
-            campaign_name TEXT,
-            password  TEXT,
+            campaign_name    TEXT,
+            player_password  TEXT,
+            dungeon_master   TEXT,
+            dm_password      TEXT,
             PRIMARY KEY(campaign_name)
         )
     ''')
@@ -80,6 +91,24 @@ def add_new_user(user, password):
     return True, msg
 
 
+def add_new_campaign(campaign, player_password, dungeon_master, dm_password):
+    check_all_tables()
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+    try:
+        cursor.execute(f"INSERT INTO campaign_table VALUES ('{campaign}', '{player_password}', '{dungeon_master}', '{dm_password}')")
+    except sqlite3.IntegrityError:
+        msg = "ERROR: Campaign Already Exists!"
+        return False, msg
+    except Exception as e:
+        print(e)
+        return False, None
+    conn.commit()
+    conn.close()
+    msg = "New Campaign Added!"
+    return True, msg
+
+
 def login_user(user, password):
     check_all_tables()
     conn = sqlite3.connect(DND_DB)
@@ -92,3 +121,15 @@ def login_user(user, password):
     else:
         msg = "Login Successful!"
         return True, msg
+
+
+def main(drop):
+    if drop:
+        drop_table(drop)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-d', '--drop', default=None, action='store', help='Table name to drop.')
+    args = parser.parse_args()
+    main(args.drop)
