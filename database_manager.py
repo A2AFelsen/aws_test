@@ -98,14 +98,14 @@ def add_new_campaign(campaign, player_password, dungeon_master, dm_password):
     try:
         cursor.execute(f"INSERT INTO campaign_table VALUES ('{campaign}', '{player_password}', '{dungeon_master}', '{dm_password}')")
     except sqlite3.IntegrityError:
-        msg = "ERROR: Campaign Already Exists!"
+        msg = f"ERROR: Campaign '{campaign}' Already Exists!"
         return False, msg
     except Exception as e:
         print(e)
         return False, None
     conn.commit()
     conn.close()
-    msg = "New Campaign Added!"
+    msg = f"New Campaign '{campaign}' Added!"
     return True, msg
 
 
