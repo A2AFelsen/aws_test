@@ -59,7 +59,7 @@ def get_all_users():
     msg = ""
     for entry in entries:
         msg += f"{entry[0]}: {entry[1]}<br>"
-    return True, msg
+    return msg
 
 
 def add_new_user(user, password):
