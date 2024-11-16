@@ -49,17 +49,22 @@ def campaign_menu_submit():
     campaign_password = request.form.get('campaign_password')
     dm_password = request.form.get('dm_password')
 
-    if action == 'play':
+    if action == 'main_menu':
+        return render_template('main_menu.html', username=username)
+    elif not campaign:
+        return render_template('campaign_menu.html', username=username)
+    elif action == 'play':
         if dm_password:
             return campaign_menu.play_campaign(campaign, dm_password, username)
         else:
-            return campaign_menu.play_campaign(campaign, campaign_password, username)
+            if campaign_password:
+                return campaign_menu.play_campaign(campaign, campaign_password, username)
+            else:
+                return render_template('campaign_menu.html', username=username)
     elif action == 'create':
         return campaign_menu.create_campaign(campaign, campaign_password, username, dm_password)
     elif action == 'delete':
         return campaign_menu.delete_campaign(campaign, dm_password, username)
-    elif action == 'main_menu':
-        return render_template('main_menu.html', username=username)
 
 
 @app.route('/campaign_action_submit', methods=['POST'])
