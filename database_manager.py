@@ -263,6 +263,14 @@ def delete_character(user, campaign):
     return True, msg
 
 
+def find_character(user, campaign):
+    check_all_tables()
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+    output = cursor.execute(f"SELECT * from character_table WHERE user_name='{user}' AND campaign_name='{campaign}'").fetchone()
+    return output
+
+
 def add_new_npc(npc_name, max_health):
     check_all_tables()
     max_health = int(max_health)

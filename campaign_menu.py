@@ -1,9 +1,10 @@
 import database_manager
+import play
 import flask
 
 
 def play_campaign(campaign, password, username):
-    output, msg = True, f"'Play' Coming Soon! ({password})"
+    output, msg = play.find_character(username, campaign)
     return flask.render_template('play.html', username=username, msg=msg)
 
 

@@ -6,6 +6,7 @@ import campaign_menu
 import character_action
 import create_character
 import npc_create
+import play
 
 app = Flask(__name__)
 
@@ -111,7 +112,7 @@ def character_action_submit():
         return f"ERROR: No such campaign '{campaign}'"
 
     if action == 'play':
-        return "Play Character"
+        return render_template(play.find_character(username, campaign))
     elif action == 'create':
         return render_template('create_character.html', username=username, campaign=campaign)
     elif action == 'delete':
