@@ -101,7 +101,7 @@ def check_all_tables():
     check_campaign_table()
     check_character_table()
     check_npc_table()
-    #check_npc_battle_table()
+    check_npc_battle_table()
 
 
 def get_all_users():
@@ -271,20 +271,62 @@ def add_new_npc(npc_name, max_health):
         return False, msg
     conn.commit()
     conn.close()
-    msg = f"New NPC {npc_name} Added!"
+    msg = f"New NPC '{npc_name}' Added!"
     return True, msg
 
 
-def main(user_drop, user_list):
+def add_npc_to_battle(npc_name, campaign_name):
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+    output = cursor.execute(f"SELECT * FROM npc_table WHERE npc_name ='{npc_name}'").fetchone()
+    if not output:
+        msg = f"NPC '{npc_name} Not Found. Try Adding it first!"
+        return False, msg
+    output = cursor.execute(f"SELECT * FROM npc_battle_table WHERE npc_name='{npc_name}' AND campaign_name='{campaign_name}'").fetchall()
+    npc_name_num = npc_name + "_" + str(len(output))
+    npc_health = int(output[1])
+    try:
+        cursor.execute(f"INSERT INTO npc_battle_table VALUES ('{npc_name_num}', '{campaign_name}', {npc_health}, 0)")
+    except sqlite3.IntegrityError:
+        msg = "Some Error Occurred o.0"
+        return False, msg
+    conn.commit()
+    conn.close()
+    msg = f"NPC '{npc_name_num}' Added to campaign '{campaign_name}'"
+    return True, msg
+
+
+def remove_npc_from_battle(npc_name, campaign_name):
+    pass
+
+
+def get_combatants(campaign_name):
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+    combatants = cursor.execute(f"""SELECT * FROM (
+                                        SELECT * FROM character_table WHERE campaign_name='{campaign_name}'
+                                        UNION
+                                        SELECT * FROM npc_battle_table WHERE campaign_name='{campaign_name}'
+                                    ) AS combined_results
+                                    ORDER BY initiative;
+                                """)
+    return combatants
+
+
+def main(user_drop, user_list, combatants):
     if user_drop:
         drop_table(user_drop)
     if user_list:
         list_table(user_list)
+    if combatants:
+        add_npc_to_battle('Zombie', 'Elorya')
+        print(get_combatants('Elorya'))
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--drop', default=None, action='store', help='Table name to drop.')
     parser.add_argument('-l', '--list', default=None, action='store', help='Table to list.')
+    parser.add_argument('-c', '--combatants', default=None, action='store', help='Lists combatants')
     args = parser.parse_args()
-    main(args.drop, args.list)
+    main(args.drop, args.list, args.combatants)

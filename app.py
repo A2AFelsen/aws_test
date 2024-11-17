@@ -124,7 +124,6 @@ def character_action_submit():
     if action == 'play':
         output, msg = play.find_character(username, campaign)
         entry = add_new_field(campaign)
-        #return render_template('play.html', username=username, msg=msg, field_value=shared_data["field_value"])
         return render_template('play.html', username=username, msg=msg, campaign=campaign, field_value=shared_data[entry])
     elif action == 'create':
         return render_template('create_character.html', username=username, campaign=campaign)
@@ -187,5 +186,4 @@ def play_submit():
 
 
 if __name__ == '__main__':
-    #app.run(debug=True, host='0.0.0.0')
     socketio.run(app, debug=True, host='0.0.0.0')
