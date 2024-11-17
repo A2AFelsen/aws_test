@@ -201,6 +201,16 @@ def login_user(user, password):
         return True, msg
 
 
+def check_campaign_exists(campaign):
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+    exists = cursor.execute(f"SELECT * FROM campaign_table WHERE campaign_name = '{campaign}'").fetchone()
+    if exists:
+        return True
+    else:
+        return False
+
+
 def main(drop):
     if drop:
         drop_table(drop)

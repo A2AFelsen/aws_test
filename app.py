@@ -100,6 +100,10 @@ def character_menu_submit():
 def character_action_submit():
     username = request.form.get('username')
     action = request.form.get('action')
+    campaign = request.form.get('campaign_name')
+
+    if not character_action.check_campaign(campaign):
+        return f"ERROR: No such campaign '{campaign}'"
 
     if action == 'play':
         return "Play Character"
