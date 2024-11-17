@@ -322,7 +322,8 @@ def main(user_drop, user_list, combatants):
     if user_list:
         list_table(user_list)
     if combatants:
-        add_npc_to_battle('Zombie', combatants)
+        output, msg = add_npc_to_battle('Zombie', combatants)
+        print(msg)
         print(get_combatants(combatants))
 
 
