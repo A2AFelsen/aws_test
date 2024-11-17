@@ -305,9 +305,11 @@ def get_combatants(campaign_name):
     conn = sqlite3.connect(DND_DB)
     cursor = conn.cursor()
     combatants = cursor.execute(f"""SELECT * FROM (
-                                        SELECT * FROM character_table WHERE campaign_name='{campaign_name}'
+                                        SELECT character_name, current_health, initiative 
+                                        FROM character_table WHERE campaign_name='{campaign_name}'
                                         UNION
-                                        SELECT * FROM npc_battle_table WHERE campaign_name='{campaign_name}'
+                                        SELECT npc_name, current_health, initiative
+                                        FROM npc_battle_table WHERE campaign_name='{campaign_name}'
                                     ) AS combined_results
                                     ORDER BY initiative;
                                 """)
