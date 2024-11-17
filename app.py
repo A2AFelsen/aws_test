@@ -112,7 +112,8 @@ def character_action_submit():
         return f"ERROR: No such campaign '{campaign}'"
 
     if action == 'play':
-        return render_template(play.find_character(username, campaign))
+        output, msg = play.find_character(username, campaign)
+        return render_template('play.html', username=username, msg=msg)
     elif action == 'create':
         return render_template('create_character.html', username=username, campaign=campaign)
     elif action == 'delete':
