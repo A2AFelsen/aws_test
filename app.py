@@ -171,12 +171,11 @@ def add_new_field(campaign):
 def handle_update_field(data):
     new_value = data.get("new_value")
     campaign = data.get("campaign")
-    entry = add_new_field(campaign)
 
-    # Update the shared field value
-    shared_data[entry] = new_value
+    # Update shared data (optional: validate the campaign here if needed)
+    shared_data["field_value"] = new_value
 
-    # Notify all connected clients of the update
+    # Emit the updated value along with the campaign
     emit('field_updated', {"new_value": new_value, "campaign": campaign}, broadcast=True)
 
 
