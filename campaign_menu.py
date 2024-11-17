@@ -5,7 +5,7 @@ import flask
 
 def play_campaign(campaign, password, username):
     output, msg = play.find_character(username, campaign)
-    return flask.render_template('play.html', username=username, msg=msg)
+    return output, msg
 
 
 def create_campaign(campaign, campaign_password, dungeon_master, dm_password):

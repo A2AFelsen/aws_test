@@ -2,16 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Play Menu</title>
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
 </head>
 <body>
+    <h1>Real-Time Field Update</h1>
+    <p>Field Value: <span id="fieldValue">{{ field_value }}</span></p>
+
+    <input type="text" id="newValue" placeholder="Enter new value">
+    <button onclick="updateField()">Update Field</button>
+
+    <script>
+        // Connect to the SocketIO server
+        const socket = io();
+
+        // Listen for updates from the server
+        socket.on('field_updated', (data) => {
+            document.getElementById('fieldValue').textContent = data.new_value;
+        });
+
+        // Emit an event to update the field
+        function updateField() {
+            const newValue = document.getElementById('newValue').value;
+            socket.emit('update_field', { new_value: newValue });
+        }
+    </script>
+
     <h1>{{msg}}'</h1>
     <form action="/play_submit" method="post" style="display:inline;">
         <h2>Choose an Option:</h2>
         <button type="submit" name="action" value="main_menu">Return to Main Menu</button>
         <input type="hidden" name="username" value="{{username}}">
     </form>
+
 </body>
 </html>

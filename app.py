@@ -10,6 +10,11 @@ import npc_create
 import play
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'your_secret_key'
+socketio = SocketIO(app)
+
+# Store the shared field value (you can replace this with a database in a real app)
+shared_data = {"field_value": "Initial Value"}
 
 
 @app.route('/')
@@ -60,10 +65,12 @@ def campaign_menu_submit():
         return render_template('campaign_menu.html', username=username)
     elif action == 'play':
         if dm_password:
-            return campaign_menu.play_campaign(campaign, dm_password, username)
+            output, msg = campaign_menu.play_campaign(campaign, dm_password, username)
+            return render_template('play.html', username=username, msg=msg, field_value=shared_data["field_value"])
         else:
             if campaign_password:
-                return campaign_menu.play_campaign(campaign, campaign_password, username)
+                output, msg = campaign_menu.play_campaign(campaign, campaign_password, username)
+                return render_template('play.html', username=username, msg=msg, field_value=shared_data["field_value"])
             else:
                 return render_template('campaign_menu.html', username=username)
     elif action == 'create':
@@ -114,7 +121,7 @@ def character_action_submit():
 
     if action == 'play':
         output, msg = play.find_character(username, campaign)
-        return render_template('play.html', username=username, msg=msg)
+        return render_template('play.html', username=username, msg=msg, field_value=shared_data["field_value"])
     elif action == 'create':
         return render_template('create_character.html', username=username, campaign=campaign)
     elif action == 'delete':
@@ -149,6 +156,15 @@ def npc_create_submit():
         return render_template('main_menu.html', username=username)
 
 
+@socketio.on('update_field')
+def handle_update_field(data):
+    # Update the shared field value
+    shared_data["field_value"] = data["new_value"]
+
+    # Notify all connected clients of the update
+    emit('field_updated', {"new_value": data["new_value"]}, broadcast=True)
+
+
 @app.route('/play_submit', methods=['POST'])
 def play_submit():
     username = request.form.get('username')
@@ -157,4 +173,5 @@ def play_submit():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    #app.run(debug=True, host='0.0.0.0')
+    socketio.run(app, debug=True, host='0.0.0.0')
