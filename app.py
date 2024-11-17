@@ -114,7 +114,7 @@ def character_action_submit():
     elif action == 'create':
         return render_template('create_character.html', username=username, campaign=campaign)
     elif action == 'delete':
-        return "Delete Character"
+        return character_action.character_delete(username, campaign)
 
 
 @app.route('/character_create_submit', methods=['POST'])
