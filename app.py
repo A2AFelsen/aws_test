@@ -108,7 +108,7 @@ def character_action_submit():
     if action == 'play':
         return "Play Character"
     elif action == 'create':
-        return "Create Character"
+        return render_template('create_character.html', username=username, campaign=campaign)
     elif action == 'delete':
         return "Delete Character"
     elif action == 'main_menu':
