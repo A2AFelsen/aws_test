@@ -96,6 +96,32 @@ def character_menu_submit():
         return render_template('main_menu.html', username=username)
 
 
+@app.route('/character_action_submit', methods=['POST'])
+def character_action_submit():
+    username = request.form.get('username')
+    action = request.form.get('action')
+
+    if action == 'play':
+        return "Play Character"
+    elif action == 'create':
+        return "Create Character"
+    elif action == 'delete':
+        return "Delete Character"
+    elif action == 'main_menu':
+        return render_template('main_menu.html', username=username)
+
+
+@app.route('/character_create_submit', methods=['POST'])
+def character_create_submit():
+    username = request.form.get('username')
+    action = request.form.get('action')
+
+    if action == 'create':
+        return "Create Character!"
+    elif action == 'main_menu':
+        return render_template('main_menu.html', username=username)
+
+
 @app.route('/play_submit', methods=['POST'])
 def play_submit():
     username = request.form.get('username')

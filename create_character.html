@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Creation</title>
+</head>
+<body>
+    <h1>{{username}}'s Character Creation Screen</h1>
+    <form action="/character_create_submit" method="post" style="display:inline;">
+        <label for="character_name">Character Name:</label><br>
+        <input type="text" name="character_name" id="character_name"><br><br>
+
+        <label for="character_health">Character Health:</label><br>
+        <input type="text" name="character_health" id="character_health"><br><br>
+
+        <label for="campaign_password">Campaign Password:</label><br>
+        <input type="password" name="campaign_password" id="campaign_password"><br><br>
+
+        <h2>Choose an Option:</h2>
+        <button type="submit" name="action" value="create">Create!</button><br><br>
+        <button type="submit" name="action" value="main_menu">Return to Main Menu</button>
+        <input type="hidden" name="username" value="{{username}}">
+    </form>
+</body>
+</html>

@@ -9,13 +9,10 @@
 <body>
     <h1>{{username}}'s Character Action Screen</h1>
     <form action="/character_action_submit" method="post" style="display:inline;">
-        <h2>Choose an Option:</h2>
-        <label for="campaign">Character Name:</label><br>
-        <input type="text" name="campaign" id="campaign"><br><br>
-
         <label for="campaign_password">Campaign Name:</label><br>
-        <input type="password" name="campaign_password" id="campaign_password"><br><br>
+        <input type="text" name="campaign_password" id="campaign_password"><br><br>
 
+        <h2>Choose an Option:</h2>
         <button type="submit" name="action" value="{{user_action}}">{{user_action}}</button><br><br>
         <button type="submit" name="action" value="main_menu">Return to Main Menu</button>
         <input type="hidden" name="username" value="{{username}}">
