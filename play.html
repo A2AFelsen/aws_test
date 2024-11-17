@@ -16,12 +16,17 @@
     <script>
         // Connect to the SocketIO server
         const socket = io();
+
+        // Dynamically pass the campaign value from the server-rendered template
         const campaign = "{{campaign}}";
 
         // Listen for updates from the server
         socket.on('field_updated', (data) => {
-            if data.campaign === campaign {
+            if (data.campaign === campaign) { // Check if the update belongs to the current campaign
                 document.getElementById('fieldValue').textContent = data.new_value;
+                console.log(`Field updated for campaign: ${campaign}`);
+            } else {
+                console.log(`Update received for different campaign: ${data.campaign}`);
             }
         });
 
@@ -31,16 +36,15 @@
             socket.emit('update_field', {
                 new_value: newValue,
                 campaign: campaign
-        });
+            });
         }
     </script>
 
-    <h1>{{msg}}'</h1>
+    <h1>{{msg}}</h1>
     <form action="/play_submit" method="post" style="display:inline;">
         <h2>Choose an Option:</h2>
         <button type="submit" name="action" value="main_menu">Return to Main Menu</button>
         <input type="hidden" name="username" value="{{username}}">
     </form>
-
 </body>
 </html>
