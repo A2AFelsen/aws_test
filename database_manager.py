@@ -115,7 +115,7 @@ def check_all_tables():
     check_campaign_table()
     check_user_campaign_table()
     check_character_table()
-    #check_npc_table()
+    check_npc_table()
     #check_npc_battle_table()
 
 
@@ -260,6 +260,25 @@ def delete_character(user, campaign):
     conn.commit()
     conn.close()
     msg = f"Character '{output[2]}' in Campaign '{campaign}' Deleted!"
+    return True, msg
+
+
+def add_new_npc(npc, max_health):
+    check_all_tables()
+    max_health = int(max_health)
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+    try:
+        cursor.execute(f"INSERT INTO npc_able VALUES ('{npc}', {max_health})")
+    except sqlite3.IntegrityError:
+        msg = f"ERROR: NPC '{npc}' Already Exists!"
+        return False, msg
+    except Exception as e:
+        print(e)
+        return False, None
+    conn.commit()
+    conn.close()
+    msg = f"New NPC {npc} Added!"
     return True, msg
 
 

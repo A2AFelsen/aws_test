@@ -92,7 +92,7 @@ def character_menu_submit():
     elif action == 'delete':
         return render_template('character_action.html', username=username, user_action='delete')
     elif action == 'npc':
-        return "Create NPC!"
+        return render_template('create_npc.html', username=username)
     elif action == 'main_menu':
         return render_template('main_menu.html', username=username)
 
@@ -125,6 +125,19 @@ def character_create_submit():
     character_name = request.form.get('character_name')
     character_health = request.form.get('character_health')
     campaign_password = request.form.get('campaign_password')
+
+    if action == 'create':
+        return create_character.create(username, campaign, campaign_password, character_name, character_health)
+    elif action == 'main_menu':
+        return render_template('main_menu.html', username=username)
+
+
+@app.route('/npc_create_submit', methods=['POST'])
+def npc_create_submit():
+    username = request.form.get('username')
+    action = request.form.get('action')
+    npc_name = request.form.get('npc_name')
+    npc_health = request.form.get('npc_health')
 
     if action == 'create':
         return create_character.create(username, campaign, campaign_password, character_name, character_health)
