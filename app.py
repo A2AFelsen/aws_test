@@ -3,6 +3,7 @@ from flask import Flask, request, render_template
 import login
 import main_menu
 import campaign_menu
+import character_action
 
 app = Flask(__name__)
 
@@ -74,6 +75,23 @@ def campaign_action_submit():
 
     if action == 'return':
         return render_template('campaign_menu.html', username=username)
+    elif action == 'main_menu':
+        return render_template('main_menu.html', username=username)
+
+
+@app.route('/character_menu_submit', methods=['POST'])
+def character_menu_submit():
+    username = request.form.get('username')
+    action = request.form.get('action')
+
+    if action == 'play':
+        return render_template('character_action.html', username=username, user_action='play')
+    elif action == 'create':
+        return render_template('character_action.html', username=username, user_action='create')
+    elif action == 'delete':
+        return render_template('character_action.html', username=username, user_action='delete')
+    elif action == 'npc':
+        return "Create NPC!"
     elif action == 'main_menu':
         return render_template('main_menu.html', username=username)
 

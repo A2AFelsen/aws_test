@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Menu</title>
+</head>
+<body>
+    <h1>{{username}}'s Character Screen</h1>
+    <form action="/character_menu_submit" method="post" style="display:inline;">
+        <h2>Choose an Option:</h2>
+        <button type="submit" name="action" value="play">Play a Character</button><br><br>
+        <button type="submit" name="action" value="create">Create a Character</button><br><br>
+        <button type="submit" name="action" value="delete">Delete a Character</button><br><br>
+        <button type="submit" name="action" value="npc">Create an NPC</button><br><br>
+        <button type="submit" name="action" value="main_menu">Return to Main Menu</button>
+        <input type="hidden" name="username" value="{{username}}">
+    </form>
+</body>
+</html>

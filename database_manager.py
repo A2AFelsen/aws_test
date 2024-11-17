@@ -62,12 +62,12 @@ def check_character_table():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS character_table (
             user_name      TEXT,
-            character_name TEXT,
             campaign_name  TEXT,
+            character_name TEXT,
             max_health     INT,
             current_health INT,
             initiative     INT,
-            PRIMARY KEY(user_name, character_name, campaign_name)
+            PRIMARY KEY(user_name, campaign_name)
         )
     ''')
     conn.commit()
@@ -177,8 +177,14 @@ def delete_campaign(campaign, dm_password):
     return True, f"Deleted Campaign '{campaign}'"
 
 
-def play_campaign(campaign, username):
-    return
+def play(user, campaign, character):
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+
+    if campaign:
+        pass
+    elif character:
+        pass
 
 
 def login_user(user, password):
@@ -193,16 +199,6 @@ def login_user(user, password):
     else:
         msg = "Login Successful!"
         return True, msg
-
-
-def play(user, campaign, character):
-    conn = sqlite3.connect(DND_DB)
-    cursor = conn.cursor()
-
-    if campaign:
-        pass
-    elif character:
-        pass
 
 
 def main(drop):
