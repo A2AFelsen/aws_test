@@ -248,6 +248,21 @@ def add_new_character(user, campaign, character, max_health):
     return True, msg
 
 
+def delete_character(user, campaign):
+    check_all_tables()
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+    output = cursor.execute(f"SELECT * from character_table WHERE user_name='{user} AND campaign_name='{campaign}'").fetchone()
+    if not output:
+        msg = f"User '{user}' has no Characters associated with Campaign '{campaign}'"
+        return False, msg
+    cursor.execute(f"DELETE from character_table WHERE user_name='{user} AND campaign_name='{campaign}'")
+    conn.commit()
+    conn.close()
+    msg = f"Character '{output[2]}' in Campaign '{campaign}' Deleted!"
+    return True, msg
+
+
 def main(user_drop, user_list):
     if user_drop:
         drop_table(user_drop)
