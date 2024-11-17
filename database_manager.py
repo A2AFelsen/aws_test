@@ -252,7 +252,7 @@ def delete_character(user, campaign):
     check_all_tables()
     conn = sqlite3.connect(DND_DB)
     cursor = conn.cursor()
-    output = cursor.execute(f"SELECT * from character_table WHERE user_name='{user} AND campaign_name='{campaign}'").fetchone()
+    output = cursor.execute(f"SELECT * from character_table WHERE user_name='{user}' AND campaign_name='{campaign}'").fetchone()
     if not output:
         msg = f"User '{user}' has no Characters associated with Campaign '{campaign}'"
         return False, msg
