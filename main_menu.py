@@ -2,7 +2,7 @@ import flask
 
 
 def character(username):
-    return 'Going to Character Menu!'
+    return flask.render_template('character_menu.html', username=username)
 
 
 def campaign(username):
