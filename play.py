@@ -2,7 +2,7 @@ import database_manager
 
 
 def find_character(user, campaign):
-    character_info = database_manager.find_character()
+    character_info = database_manager.find_character(user, campaign)
     if not character_info:
         return False, f"User '{user}' has no Characters associated with Campaign '{campaign}'"
     character_name = character_info[2]
