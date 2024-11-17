@@ -168,13 +168,16 @@ def add_new_field(campaign):
 
 
 @socketio.on('update_field')
-def handle_update_field(campaign, data):
+def handle_update_field(data):
+    new_value = data.get("new_value")
+    campaign = data.get("campaign")
     entry = add_new_field(campaign)
+
     # Update the shared field value
-    shared_data[entry] = data["new_value"]
+    shared_data[entry] = new_value
 
     # Notify all connected clients of the update
-    emit('field_updated', {"new_value": data["new_value"]}, broadcast=True)
+    emit('field_updated', {"new_value": new_value}, broadcast=True)
 
 
 @app.route('/play_submit', methods=['POST'])

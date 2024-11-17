@@ -18,14 +18,18 @@
         const socket = io();
 
         // Listen for updates from the server
-        socket.on('field_updated', ({{campaign}}, data) => {
+        socket.on('field_updated', (data) => {
             document.getElementById('fieldValue').textContent = data.new_value;
         });
 
         // Emit an event to update the field
         function updateField() {
             const newValue = document.getElementById('newValue').value;
-            socket.emit('update_field', { new_value: newValue });
+            const campaign = {{campaign}};
+            socket.emit('update_field', {
+                new_value: newValue,
+                campaign: campaign
+        });
         }
     </script>
 
