@@ -237,7 +237,7 @@ def add_new_character(user, campaign, character, max_health):
     try:
         cursor.execute(f"INSERT INTO character_table VALUES ('{user}', '{campaign}', '{character}', {max_health}, {max_health}, 0)")
     except sqlite3.IntegrityError:
-        msg = f"ERROR: Character '{character}' in Campaign '{campaign}' Already Exists!"
+        msg = f"ERROR: User '{user}' in Campaign '{campaign}' Already Exists!"
         return False, msg
     except Exception as e:
         print(e)
@@ -256,7 +256,7 @@ def delete_character(user, campaign):
     if not output:
         msg = f"User '{user}' has no Characters associated with Campaign '{campaign}'"
         return False, msg
-    cursor.execute(f"DELETE from character_table WHERE user_name='{user} AND campaign_name='{campaign}'")
+    cursor.execute(f"DELETE from character_table WHERE user_name='{user}' AND campaign_name='{campaign}'")
     conn.commit()
     conn.close()
     msg = f"Character '{output[2]}' in Campaign '{campaign}' Deleted!"
