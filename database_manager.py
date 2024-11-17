@@ -274,8 +274,8 @@ def add_new_npc(npc_name, max_health):
         msg = f"ERROR: NPC '{npc_name}' Already Exists!"
         return False, msg
     except Exception as e:
-        print(e)
-        return False, None
+        msg = e
+        return False, msg
     conn.commit()
     conn.close()
     msg = f"New NPC {npc_name} Added!"
