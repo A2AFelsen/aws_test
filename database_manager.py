@@ -280,12 +280,12 @@ def add_npc_to_battle(npc_name, campaign_name):
     conn = sqlite3.connect(DND_DB)
     cursor = conn.cursor()
     output = cursor.execute(f"SELECT * FROM npc_table WHERE npc_name ='{npc_name}'").fetchone()
+    npc_health = int(output[1])
     if not output:
         msg = f"NPC '{npc_name} Not Found. Try Adding it first!"
         return False, msg
     output = cursor.execute(f"SELECT * FROM npc_battle_table WHERE npc_name='{npc_name}' AND campaign_name='{campaign_name}'").fetchall()
     npc_name_num = npc_name + "_" + str(len(output))
-    npc_health = int(output[1])
     try:
         cursor.execute(f"INSERT INTO npc_battle_table VALUES ('{npc_name_num}', '{campaign_name}', {npc_health}, 0)")
     except sqlite3.IntegrityError:
