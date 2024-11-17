@@ -66,11 +66,13 @@ def campaign_menu_submit():
     elif action == 'play':
         if dm_password:
             output, msg = campaign_menu.play_campaign(campaign, dm_password, username)
-            return render_template('play.html', username=username, msg=msg, field_value=shared_data["field_value"])
+            entry = add_new_field(campaign)
+            return render_template('play.html', username=username, msg=msg, campaign=campaign, field_value=shared_data[entry])
         else:
             if campaign_password:
                 output, msg = campaign_menu.play_campaign(campaign, campaign_password, username)
-                return render_template('play.html', username=username, msg=msg, field_value=shared_data["field_value"])
+                entry = add_new_field(campaign)
+                return render_template('play.html', username=username, msg=msg, campaign=campaign, field_value=shared_data[entry])
             else:
                 return render_template('campaign_menu.html', username=username)
     elif action == 'create':
@@ -121,7 +123,9 @@ def character_action_submit():
 
     if action == 'play':
         output, msg = play.find_character(username, campaign)
-        return render_template('play.html', username=username, msg=msg, field_value=shared_data["field_value"])
+        entry = add_new_field(campaign)
+        #return render_template('play.html', username=username, msg=msg, field_value=shared_data["field_value"])
+        return render_template('play.html', username=username, msg=msg, campaign=campaign, field_value=shared_data[entry])
     elif action == 'create':
         return render_template('create_character.html', username=username, campaign=campaign)
     elif action == 'delete':
@@ -156,10 +160,18 @@ def npc_create_submit():
         return render_template('main_menu.html', username=username)
 
 
+def add_new_field(campaign):
+    entry = f"{campaign}_field_value"
+    if entry not in shared_data:
+        shared_data[entry] = None
+    return entry
+
+
 @socketio.on('update_field')
-def handle_update_field(data):
+def handle_update_field(campaign, data):
+    entry = add_new_field(campaign)
     # Update the shared field value
-    shared_data["field_value"] = data["new_value"]
+    shared_data[entry] = data["new_value"]
 
     # Notify all connected clients of the update
     emit('field_updated', {"new_value": data["new_value"]}, broadcast=True)

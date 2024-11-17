@@ -18,7 +18,7 @@
         const socket = io();
 
         // Listen for updates from the server
-        socket.on('field_updated', (data) => {
+        socket.on('field_updated', ({{campaign}}, data) => {
             document.getElementById('fieldValue').textContent = data.new_value;
         });
 
