@@ -177,7 +177,7 @@ def handle_update_field(data):
     shared_data[entry] = new_value
 
     # Notify all connected clients of the update
-    emit('field_updated', {"new_value": new_value}, broadcast=True)
+    emit('field_updated', {"new_value": new_value, "campaign": campaign}, broadcast=True)
 
 
 @app.route('/play_submit', methods=['POST'])
