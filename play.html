@@ -25,7 +25,7 @@
         // Emit an event to update the field
         function updateField() {
             const newValue = document.getElementById('newValue').value;
-            const campaign = 'Elorya';
+            const campaign = "{{campaign}}";
             socket.emit('update_field', {
                 new_value: newValue,
                 campaign: campaign
