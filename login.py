@@ -12,11 +12,11 @@ def login(username, password):
     output, msg = database_manager.login_user(username, password)
     if not output:
         return f"Incorrect Username '{username}' and Password '{password}'"
-    return flask.render_template('main_menu.html', username=username)
+    return flask.render_template('main_menu.html', username=username, msg="Returning")
 
 
 def new_user(username, password):
     output, msg = database_manager.add_new_user(username, password)
     if not output:
         return msg
-    return flask.render_template('main_menu.html', username=(username + ' (New User!)'))
+    return flask.render_template('main_menu.html', username=username, msg="New User,")

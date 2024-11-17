@@ -49,20 +49,6 @@ def check_campaign_table():
     conn.close()
 
 
-def check_user_campaign_table():
-    conn = sqlite3.connect(DND_DB)
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS user_campaign_table (
-            user_name     TEXT,
-            campaign_name TEXT,
-            PRIMARY KEY(user_name, campaign_name)
-        )
-    ''')
-    conn.commit()
-    conn.close()
-
-
 def check_character_table():
     conn = sqlite3.connect(DND_DB)
     cursor = conn.cursor()
@@ -113,7 +99,6 @@ def check_npc_battle_table():
 def check_all_tables():
     check_login_table()
     check_campaign_table()
-    check_user_campaign_table()
     check_character_table()
     check_npc_table()
     #check_npc_battle_table()
