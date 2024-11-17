@@ -103,6 +103,9 @@ def character_action_submit():
     action = request.form.get('action')
     campaign = request.form.get('campaign_name')
 
+    if action == 'main_menu':
+        return render_template('main_menu.html', username=username)
+
     if not character_action.check_campaign(campaign):
         return f"ERROR: No such campaign '{campaign}'"
 
@@ -112,8 +115,6 @@ def character_action_submit():
         return render_template('create_character.html', username=username, campaign=campaign)
     elif action == 'delete':
         return "Delete Character"
-    elif action == 'main_menu':
-        return render_template('main_menu.html', username=username)
 
 
 @app.route('/character_create_submit', methods=['POST'])
