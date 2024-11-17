@@ -269,7 +269,7 @@ def add_new_npc(npc_name, max_health):
     conn = sqlite3.connect(DND_DB)
     cursor = conn.cursor()
     try:
-        cursor.execute(f"INSERT INTO npc_able VALUES ('{npc_name}', {max_health})")
+        cursor.execute(f"INSERT INTO npc_table VALUES ('{npc_name}', {max_health})")
     except sqlite3.IntegrityError:
         msg = f"ERROR: NPC '{npc_name}' Already Exists!"
         return False, msg

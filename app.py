@@ -144,8 +144,6 @@ def npc_create_submit():
         return npc_create.create(npc_name, npc_health)
     elif action == 'main_menu':
         return render_template('main_menu.html', username=username)
-    else:
-        return "HERE?!?"
 
 
 @app.route('/play_submit', methods=['POST'])
