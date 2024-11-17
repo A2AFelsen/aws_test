@@ -263,22 +263,22 @@ def delete_character(user, campaign):
     return True, msg
 
 
-def add_new_npc(npc, max_health):
+def add_new_npc(npc_name, max_health):
     check_all_tables()
     max_health = int(max_health)
     conn = sqlite3.connect(DND_DB)
     cursor = conn.cursor()
     try:
-        cursor.execute(f"INSERT INTO npc_able VALUES ('{npc}', {max_health})")
+        cursor.execute(f"INSERT INTO npc_able VALUES ('{npc_name}', {max_health})")
     except sqlite3.IntegrityError:
-        msg = f"ERROR: NPC '{npc}' Already Exists!"
+        msg = f"ERROR: NPC '{npc_name}' Already Exists!"
         return False, msg
     except Exception as e:
         print(e)
         return False, None
     conn.commit()
     conn.close()
-    msg = f"New NPC {npc} Added!"
+    msg = f"New NPC {npc_name} Added!"
     return True, msg
 
 

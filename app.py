@@ -5,6 +5,7 @@ import main_menu
 import campaign_menu
 import character_action
 import create_character
+import npc_create
 
 app = Flask(__name__)
 
@@ -140,7 +141,7 @@ def npc_create_submit():
     npc_health = request.form.get('npc_health')
 
     if action == 'create':
-        return create_character.create(username, campaign, campaign_password, character_name, character_health)
+        return npc_create.create(npc_name, npc_health)
     elif action == 'main_menu':
         return render_template('main_menu.html', username=username)
 
