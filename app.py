@@ -1,5 +1,6 @@
 # app.py
 from flask import Flask, request, render_template
+from flask_socketio import SocketIO, emit
 import login
 import main_menu
 import campaign_menu
