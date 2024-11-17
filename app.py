@@ -4,6 +4,7 @@ import login
 import main_menu
 import campaign_menu
 import character_action
+import create_character
 
 app = Flask(__name__)
 
@@ -119,9 +120,13 @@ def character_action_submit():
 def character_create_submit():
     username = request.form.get('username')
     action = request.form.get('action')
+    campaign = request.form.get('campaign')
+    character_name = request.form.get('character_name')
+    character_health = request.form.get('character_health')
+    campaign_password = request.form.get('campaign_password')
 
     if action == 'create':
-        return "Create Character!"
+        return create_character.create(username, campaign, campaign_password, character_name, character_health)
     elif action == 'main_menu':
         return render_template('main_menu.html', username=username)
 

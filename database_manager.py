@@ -12,6 +12,13 @@ def drop_table(table):
     conn.close()
 
 
+def list_table(table):
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+    for entry in cursor.execute(f'''SELECT * FROM {table}''').fetchall():
+        print(entry)
+
+
 def check_login_table():
     conn = sqlite3.connect(DND_DB)
     cursor = conn.cursor()
@@ -211,13 +218,46 @@ def check_campaign_exists(campaign):
         return False
 
 
-def main(drop):
-    if drop:
-        drop_table(drop)
+def login_campaign(campaign, password):
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+    login_info = cursor.execute(
+        f"SELECT * FROM campaign_table WHERE campaign_name ='{campaign}' and player_password='{password}'").fetchone()
+    if not login_info:
+        return False
+    else:
+        return True
+
+
+def add_new_character(user, campaign, character, max_health):
+    check_all_tables()
+    max_health = int(max_health)
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+    try:
+        cursor.execute(f"INSERT INTO character_table VALUES ('{user}', '{campaign}', '{character}', {max_health}, {max_health}, 0)")
+    except sqlite3.IntegrityError:
+        msg = f"ERROR: Character '{character}' in Campaign '{campaign}' Already Exists!"
+        return False, msg
+    except Exception as e:
+        print(e)
+        return False, None
+    conn.commit()
+    conn.close()
+    msg = f"New Character '{character}' in Campaign '{campaign}' Added!"
+    return True, msg
+
+
+def main(user_drop, user_list):
+    if user_drop:
+        drop_table(user_drop)
+    if user_list:
+        list_table(user_list)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--drop', default=None, action='store', help='Table name to drop.')
+    parser.add_argument('-l', '--list', default=None, action='store', help='Table to list.')
     args = parser.parse_args()
-    main(args.drop)
+    main(args.drop, args.list)
