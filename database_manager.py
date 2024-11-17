@@ -312,7 +312,7 @@ def get_combatants(campaign_name):
                                         FROM npc_battle_table WHERE campaign_name='{campaign_name}'
                                     ) AS combined_results
                                     ORDER BY initiative;
-                                """)
+                                """).fetchall()
     return combatants
 
 
@@ -322,14 +322,14 @@ def main(user_drop, user_list, combatants):
     if user_list:
         list_table(user_list)
     if combatants:
-        add_npc_to_battle('Zombie', 'Elorya')
-        print(get_combatants('Elorya'))
+        add_npc_to_battle('Zombie', combatants)
+        print(get_combatants(combatants))
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--drop', default=None, action='store', help='Table name to drop.')
     parser.add_argument('-l', '--list', default=None, action='store', help='Table to list.')
-    parser.add_argument('-c', '--combatants', default=None, action='store', help='Lists combatants')
+    parser.add_argument('-c', '--combatants', default=None, action='store', help='Lists combatants of given campaign')
     args = parser.parse_args()
     main(args.drop, args.list, args.combatants)
