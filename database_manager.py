@@ -276,6 +276,7 @@ def add_new_npc(npc_name, max_health):
 
 
 def add_npc_to_battle(npc_name, campaign_name):
+    check_all_tables()
     conn = sqlite3.connect(DND_DB)
     cursor = conn.cursor()
     output = cursor.execute(f"SELECT * FROM npc_table WHERE npc_name ='{npc_name}'").fetchone()
