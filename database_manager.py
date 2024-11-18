@@ -337,7 +337,7 @@ def update_npc(campaign_name, npc_name, current_health, initiative):
     cursor.execute(f"""UPDATE npc_battle_table
                        SET (current_health, initiative) = ({int(current_health)}, {int(initiative)}) 
                        WHERE campaign_name = '{campaign_name}'
-                       AND character_name = '{npc_name}'
+                       AND npc_name = '{npc_name}'
                     """)
     conn.commit()
     conn.close()
