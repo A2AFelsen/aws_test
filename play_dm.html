@@ -11,6 +11,11 @@
     <h2>{{username}}'s View:</h2>
     <pre id="fieldValue">{{ field_value }}</pre>
 
+    <input type="text" id="character_name" placeholder="Enter Character">
+    <input type="text" id="current_health" placeholder="Enter New Health">
+    <input type="text" id="initiative" placeholder="Enter New Initiative">
+    <button onclick="updateField()">Update Character</button><br><br>
+
     <script>
         // Connect to the SocketIO server
         const socket = io();

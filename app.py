@@ -67,7 +67,7 @@ def campaign_menu_submit():
         if dm_password:
             output, msg = campaign_menu.play_campaign(campaign, dm_password, username)
             entry = add_new_field(campaign)
-            return render_template('play.html', username=username, msg=msg, campaign=campaign, field_value=shared_data[entry])
+            return render_template('play_dm.html', username=username, msg=msg, campaign=campaign, field_value=shared_data[entry])
         else:
             if campaign_password:
                 output, msg = campaign_menu.play_campaign(campaign, campaign_password, username)
