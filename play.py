@@ -14,7 +14,7 @@ def find_character(user, campaign):
 
 def print_battle(campaign):
     msg = ""
-    combatants_list = database_manager.get_combatants(campaign)[0]
+    combatants_list = database_manager.get_combatants(campaign)
     for combatant in combatants_list:
         character_name = combatant[0]
         current_health = combatant[1]
