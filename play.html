@@ -7,12 +7,11 @@
     <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
 </head>
 <body>
-    <h1>Real-Time Field Update</h1>
+    <h1>{{Campaign}} Battle Menu</h1>
     <p>Field Value:</p>
     <pre id="fieldValue">{{ field_value }}</pre>
 
-    <input type="text" id="newValue" placeholder="Enter new value">
-    <button onclick="updateField()">Update Field</button>
+    <button onclick="updateField()">Update Battle!</button>
 
     <script>
         // Connect to the SocketIO server
@@ -41,9 +40,7 @@
         }
     </script>
 
-    <h1>{{msg}}</h1>
     <form action="/play_submit" method="post" style="display:inline;">
-        <h2>Choose an Option:</h2>
         <button type="submit" name="action" value="main_menu">Return to Main Menu</button>
         <input type="hidden" name="username" value="{{username}}">
     </form>
