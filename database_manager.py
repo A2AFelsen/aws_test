@@ -321,10 +321,10 @@ def update_npc(campaign_name, npc_name, current_health, initiative):
     cursor = conn.cursor()
 
     npc_data = cursor.execute(f"""SELECT * 
-                                        FROM npc_battle_table
-                                        WHERE character_name = '{npc_name}'
-                                        AND campaign_name = '{campaign_name}'                         
-                                    """).fetchone()
+                                  FROM npc_battle_table
+                                  WHERE npc_name = '{npc_name}'
+                                  AND campaign_name = '{campaign_name}'                         
+                                  """).fetchone()
 
     if not npc_data:
         return False
