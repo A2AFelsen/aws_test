@@ -168,7 +168,7 @@ def add_new_field(campaign):
 
 @socketio.on('update_field')
 def handle_update_field(data):
-    new_value = data.get("new_value")
+    #new_value = data.get("new_value")
     campaign = data.get("campaign")
     new_value = play.print_battle(campaign)
 
