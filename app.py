@@ -170,6 +170,7 @@ def add_new_field(campaign):
 def handle_update_field(data):
     new_value = data.get("new_value")
     campaign = data.get("campaign")
+    new_value = play.print_battle(campaign)
 
     # Update shared data (optional: validate the campaign here if needed)
     shared_data["field_value"] = new_value
