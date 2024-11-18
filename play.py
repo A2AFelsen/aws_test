@@ -24,4 +24,6 @@ def print_battle(campaign):
 
 
 def update_character(campaign_name, character_name, current_health):
+    if current_health == "":
+        return
     return database_manager.update_character(campaign_name, character_name, current_health)
