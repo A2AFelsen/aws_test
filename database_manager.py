@@ -311,7 +311,7 @@ def get_combatants(campaign_name):
                                         SELECT npc_name, current_health, initiative
                                         FROM npc_battle_table WHERE campaign_name='{campaign_name}'
                                     ) AS combined_results
-                                    ORDER BY initiative;
+                                    ORDER BY initiative DESC;
                                 """).fetchall()
     return combatants
 
