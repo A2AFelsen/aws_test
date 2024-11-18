@@ -11,9 +11,8 @@
     <p>Field Value:</p>
     <pre id="fieldValue">{{ field_value }}</pre>
 
-    <input type="text" id="character_name" placeholder="Enter Character">
-    <input type="text" id="new_health" placeholder="Enter New Health">
-    <button onclick="updateField()">Update Battle</button><br><br>
+    <input type="text" id="newValue" placeholder="Enter new value">
+    <button onclick="updateField()">Update Field</button>
 
     <script>
         // Connect to the SocketIO server
@@ -43,6 +42,7 @@
     </script>
 
     <form action="/play_submit" method="post" style="display:inline;">
+        <h2>Choose an Option:</h2>
         <button type="submit" name="action" value="main_menu">Return to Main Menu</button>
         <input type="hidden" name="username" value="{{username}}">
     </form>
