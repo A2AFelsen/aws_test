@@ -316,6 +316,19 @@ def get_combatants(campaign_name):
     return combatants
 
 
+def update_character(campaign_name, character_name, current_health):
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+    cursor.execute(f"""UPDATE character_table
+                       SET current_health = {int(current_health)} 
+                       WHERE campaign_name = '{campaign_name}'
+                       AND character_name = '{character_name}'
+                    """)
+    conn.commit()
+    conn.close()
+
+
+
 def main(user_drop, user_list, combatants):
     if user_drop:
         drop_table(user_drop)

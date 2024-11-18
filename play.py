@@ -21,3 +21,7 @@ def print_battle(campaign):
         initiative = combatant[2]
         msg += f"{character_name} is at {current_health} HP. (Initiative: {initiative})\n"
     return msg
+
+
+def update_character(campaign_name, character_name, current_health):
+    return database_manager.update_character(campaign_name, character_name, current_health)
