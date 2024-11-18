@@ -168,8 +168,8 @@ def add_new_field(campaign):
 
 @socketio.on('update_field')
 def handle_update_field(data):
-    character_name = data.get('character_name')
-    current_health = data.get('current_health')
+    #character_name = data.get('character_name')
+    #current_health = data.get('current_health')
     campaign = data.get("campaign")
     new_value = play.print_battle(campaign)
 
