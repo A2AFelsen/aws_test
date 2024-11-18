@@ -23,7 +23,7 @@ def print_battle(campaign):
     return msg
 
 
-def update_character(campaign_name, character_name, current_health):
+def update_character(campaign_name, character_name, current_health, initiative):
     if current_health == "":
         return
     return database_manager.update_character(campaign_name, character_name, current_health)

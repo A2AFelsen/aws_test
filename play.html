@@ -13,7 +13,8 @@
 
     <input type="text" id="character_name" placeholder="Enter Character">
     <input type="text" id="current_health" placeholder="Enter New Health">
-    <button onclick="updateField()">Update Field</button><br><br>
+    <input type="text" id="initiative" placeholder="Enter New Initiative">
+    <button onclick="updateField()">Update Character</button><br><br>
 
     <script>
         // Connect to the SocketIO server
@@ -36,9 +37,11 @@
         function updateField() {
             const character_name = document.getElementById('character_name').value;
             const current_health = document.getElementById('current_health').value;
+            const initiative = document.getElementById('initiative').value;
             socket.emit('update_field', {
                 character_name: character_name,
                 current_health: current_health,
+                initiative: initiative,
                 campaign: campaign
             });
         }

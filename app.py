@@ -170,8 +170,9 @@ def add_new_field(campaign):
 def handle_update_field(data):
     character_name = data.get('character_name')
     current_health = data.get('current_health')
+    initiative = data.get('initiative')
     campaign = data.get("campaign")
-    play.update_character(campaign, character_name, current_health)
+    play.update_character(campaign, character_name, current_health, initiative)
     new_value = play.print_battle(campaign)
 
     # Update shared data (optional: validate the campaign here if needed)
