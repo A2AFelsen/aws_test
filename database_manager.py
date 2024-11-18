@@ -316,6 +316,34 @@ def get_combatants(campaign_name):
     return combatants
 
 
+def update_npc(campaign_name, npc_name, current_health, initiative):
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+
+    npc_data = cursor.execute(f"""SELECT * 
+                                        FROM npc_battle_table
+                                        WHERE character_name = '{npc_name}'
+                                        AND campaign_name = '{campaign_name}'                         
+                                    """).fetchone()
+
+    if not npc_data:
+        return False
+
+    if current_health == "":
+        current_health = int(npc_data[2])
+    if initiative == "":
+        initiative = int(npc_data[3])
+
+    cursor.execute(f"""UPDATE npc_battle_table
+                       SET (current_health, initiative) = ({int(current_health)}, {int(initiative)}) 
+                       WHERE campaign_name = '{campaign_name}'
+                       AND character_name = '{npc_name}'
+                    """)
+    conn.commit()
+    conn.close()
+    return True
+
+
 def update_character(campaign_name, character_name, current_health, initiative):
     conn = sqlite3.connect(DND_DB)
     cursor = conn.cursor()
@@ -327,7 +355,8 @@ def update_character(campaign_name, character_name, current_health, initiative):
                                     """).fetchone()
 
     if not character_data:
-        return False
+        conn.close()
+        return update_npc(campaign_name, character_name, current_health, initiative)
 
     if current_health == "":
         current_health = int(character_data[4])
