@@ -37,8 +37,8 @@
             const character_name = document.getElementById('character_name').value;
             const current_health = document.getElementById('current_health').value;
             socket.emit('update_field', {
-                character_name: character_name
-                current_health: current_health
+                character_name: character_name,
+                current_health: current_health,
                 campaign: campaign
             });
         }
