@@ -7,11 +7,12 @@
     <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
 </head>
 <body>
-    <h1>{{Campaign}}</h1>
+    <h1>{{campaign}}</h1>
     <p>Battle:</p>
     <pre id="fieldValue">{{ field_value }}</pre>
 
-    <input type="text" id="newValue" placeholder="Enter new value">
+    <input type="text" id="newValue" placeholder="Enter Character">
+    <input type="text" id="new_health" placeholder="Enter New Health">
     <button onclick="updateField()">Update Field</button><br><br>
 
     <script>
