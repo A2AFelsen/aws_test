@@ -12,17 +12,21 @@ def read_sqlite_from_s3(bucket_name, key):
     """
     try:
         # Step 1: Connect to S3 and fetch the database file as a binary stream
+        print("HERE0")
         s3_client = boto3.client('s3')
         response = s3_client.get_object(Bucket=bucket_name, Key=key)
 
         # Step 2: Read the file content into a BytesIO stream
+        print("HERE1")
         file_stream = io.BytesIO(response['Body'].read())
 
         # Step 3: Connect to the SQLite database in memory
+        print("HERE2")
         conn = sqlite3.connect(':memory:')
         cursor = conn.cursor()
 
         # Step 4: Load the database from the file stream
+        print("HERE3")
         with io.BytesIO(file_stream.read()) as temp_file:
             conn.backup(sqlite3.connect(temp_file))
 
