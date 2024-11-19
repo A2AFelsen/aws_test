@@ -32,9 +32,10 @@ def read_sqlite_from_s3(bucket_name, key):
         for table in cursor.fetchall():
             print(table[0])
 
-        cursor.execute("SELECT * FROM npc_table")
+        disk_cursor = disk_conn.cursor()
+        disk_cursor.execute("SELECT * FROM npc_table")
         print("NPC_table:")
-        for table in cursor.fetchall():
+        for table in disk_cursor.fetchall():
             print(table[0])
 
         # Clean up connections
