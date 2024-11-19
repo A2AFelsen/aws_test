@@ -15,27 +15,12 @@ def read_sqlite_from_s3(bucket_name, key):
         response = s3_client.get_object(Bucket=bucket_name, Key=key)
 
         # Step 2: Read the file content into a BytesIO stream
-        file_stream = io.BytesIO(response['Body'].read())
-
-        # Step 3: Create an in-memory SQLite database
-        mem_conn = sqlite3.connect(':memory:')  # Create an in-memory SQLite database
-
-        # Step 4: Use backup to load the data into the in-memory database
-        with mem_conn:
-            # Create a temporary file in-memory using SQLite backup
-            with sqlite3.connect(':memory:') as temp_conn:
-                file_stream.seek(0)  # Reset the stream to the start
-                temp_conn.backup(mem_conn)
-
-        # Step 5: Query the in-memory SQLite database
-        cursor = mem_conn.cursor()
-        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-        print("Tables in the database:")
-        for table in cursor.fetchall():
-            print(table[0])
-
-        # Clean up connections
-        mem_conn.close()
+        DND_DB = io.BytesIO(response['Body'].read())
+        conn = sqlite3.connect(DND_DB)
+        cursor = conn.cursor()
+        npc_list = cursor.execute("SELECT * from npc_table").fetchall()
+        for npc in npc_list:
+            print(npc)
 
     except Exception as e:
         print(f"An error occurred: {e}")
