@@ -2,6 +2,7 @@ import boto3
 import sqlite3
 import io
 
+
 def read_sqlite_from_s3(bucket_name, key):
     """
     Read and query an SQLite database directly from S3 without saving it to disk.
@@ -10,7 +11,7 @@ def read_sqlite_from_s3(bucket_name, key):
     :param key: Path to the SQLite database file in the S3 bucket.
     """
     try:
-        # Step 1: Connect to S3 and fetch the database file as a stream
+        # Step 1: Connect to S3 and fetch the database file as a binary stream
         s3_client = boto3.client('s3')
         response = s3_client.get_object(Bucket=bucket_name, Key=key)
 
@@ -18,31 +19,24 @@ def read_sqlite_from_s3(bucket_name, key):
         file_stream = io.BytesIO(response['Body'].read())
 
         # Step 3: Connect to the SQLite database in memory
-        conn = sqlite3.connect(':memory:')  # SQLite in-memory database
+        conn = sqlite3.connect(':memory:')
         cursor = conn.cursor()
 
-        # Step 4: Load the database from the stream
-        with conn:
-            # Use `sqlite3.Connection` to load the database into memory
-            conn.executescript("".join(io.TextIOWrapper(file_stream).readlines()))
+        # Step 4: Load the database from the file stream
+        with io.BytesIO(file_stream.read()) as temp_file:
+            conn.backup(sqlite3.connect(temp_file))
 
-        # Example query: List all tables
+        # Example query: List all tables in the database
         print("Tables in the database:")
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
         for table in cursor.fetchall():
             print(table[0])
 
-        # Example: Query data from a specific table
-        # Replace 'your_table_name' with the actual table name in your database
-        print("\nSample data from 'your_table_name':")
-        cursor.execute("SELECT * FROM npc_table LIMIT 5;")
-        for row in cursor.fetchall():
-            print(row)
-
     except Exception as e:
         print(f"An error occurred: {e}")
     finally:
         conn.close()
+
 
 # Example usage
 bucket_name = "felsen-bucket"
