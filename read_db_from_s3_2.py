@@ -4,7 +4,7 @@ import io
 
 def read_sqlite_from_s3(bucket_name, key):
     """
-    Read and query an SQLite database directly from S3 without saving it to disk.
+    Read and query an SQLite database stored in S3 directly into memory without saving it locally.
 
     :param bucket_name: Name of the S3 bucket.
     :param key: Path to the SQLite database file in the S3 bucket.
@@ -17,29 +17,24 @@ def read_sqlite_from_s3(bucket_name, key):
         # Step 2: Read the file content into a BytesIO stream
         file_stream = io.BytesIO(response['Body'].read())
 
-        # Step 3: Load the SQLite database into memory
-        disk_conn = sqlite3.connect("file:temp.db?mode=memory&cache=shared", uri=True)
+        # Step 3: Create an in-memory SQLite database
         mem_conn = sqlite3.connect(':memory:')  # Create an in-memory SQLite database
 
-        with disk_conn:
-            # Attach the in-memory database and transfer its content
-            disk_conn.backup(mem_conn)
+        # Step 4: Use backup to load the data into the in-memory database
+        with mem_conn:
+            # Create a temporary file in-memory using SQLite backup
+            with sqlite3.connect(':memory:') as temp_conn:
+                file_stream.seek(0)  # Reset the stream to the start
+                temp_conn.backup(mem_conn)
 
-        # Step 4: Query the in-memory SQLite database
+        # Step 5: Query the in-memory SQLite database
         cursor = mem_conn.cursor()
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
         print("Tables in the database:")
         for table in cursor.fetchall():
             print(table[0])
 
-        disk_cursor = disk_conn.cursor()
-        disk_cursor.execute("SELECT * FROM npc_table")
-        print("NPC_table:")
-        for table in disk_cursor.fetchall():
-            print(table[0])
-
         # Clean up connections
-        disk_conn.close()
         mem_conn.close()
 
     except Exception as e:
