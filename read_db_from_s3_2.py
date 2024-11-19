@@ -32,8 +32,8 @@ def read_sqlite_from_s3(bucket_name, key):
         for table in cursor.fetchall():
             print(table[0])
 
-        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-        print("Tables in the database:")
+        cursor.execute("SELECT * FROM npc_table")
+        print("NPC_table:")
         for table in cursor.fetchall():
             print(table[0])
 
