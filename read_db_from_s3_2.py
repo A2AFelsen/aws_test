@@ -1,33 +1,30 @@
 import boto3
-import sqlite3
-import io
 
-def read_sqlite_from_s3(bucket_name, key):
+def download_file_from_s3(bucket_name, s3_key, local_file_path):
     """
-    Read and query an SQLite database stored in S3 directly into memory without saving it locally.
+    Download a file from an S3 bucket to a local path on the EC2 instance.
 
-    :param bucket_name: Name of the S3 bucket.
-    :param key: Path to the SQLite database file in the S3 bucket.
+    :param bucket_name: The name of the S3 bucket.
+    :param s3_key: The key (path) to the file in the S3 bucket.
+    :param local_file_path: The local file path where the file should be saved.
     """
     try:
-        # Step 1: Connect to S3 and fetch the database file as a binary stream
-        s3_client = boto3.client('s3')
-        response = s3_client.get_object(Bucket=bucket_name, Key=key)
+        # Create an S3 client
+        s3 = boto3.client('s3')
 
-        # Step 2: Read the file content into a BytesIO stream
-        DND_DB = response['Body']
-        conn = sqlite3.connect(DND_DB)
-        cursor = conn.cursor()
-        npc_list = cursor.execute("SELECT * from npc_table").fetchall()
-        for npc in npc_list:
-            print(npc)
+        # Download the file
+        s3.download_file(bucket_name, s3_key, local_file_path)
+
+        print(f"File downloaded successfully from s3://{bucket_name}/{s3_key} to {local_file_path}")
 
     except Exception as e:
         print(f"An error occurred: {e}")
 
 
 # Example usage
-bucket_name = "felsen-bucket"
-key = "dnd.db"  # Replace with the path to your SQLite file in S3
+local_file_path = "/var/www/html/dnd.db"  # Local file path on EC2
+bucket_name = "felsen-bucket"  # S3 bucket name
+s3_key = "dnd.db"  # Key in the S3 bucket
 
-read_sqlite_from_s3(bucket_name, key)
+download_file_from_s3(bucket_name, s3_key, local_file_path)
+
