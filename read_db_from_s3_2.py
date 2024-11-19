@@ -32,6 +32,11 @@ def read_sqlite_from_s3(bucket_name, key):
         for table in cursor.fetchall():
             print(table[0])
 
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        print("Tables in the database:")
+        for table in cursor.fetchall():
+            print(table[0])
+
         # Clean up connections
         disk_conn.close()
         mem_conn.close()
