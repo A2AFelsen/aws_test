@@ -15,7 +15,7 @@ def read_sqlite_from_s3(bucket_name, key):
         response = s3_client.get_object(Bucket=bucket_name, Key=key)
 
         # Step 2: Read the file content into a BytesIO stream
-        DND_DB = io.BytesIO(response['Body'].read())
+        DND_DB = response['Body'].read()
         conn = sqlite3.connect(DND_DB)
         cursor = conn.cursor()
         npc_list = cursor.execute("SELECT * from npc_table").fetchall()
