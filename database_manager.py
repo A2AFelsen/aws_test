@@ -344,7 +344,7 @@ def update_npc(campaign_name, npc_name, current_health, initiative):
     if initiative == "":
         initiative = int(npc_data[3])
 
-    if current_health <= 0:
+    if int(current_health) <= 0:
         remove_npc_from_battle(npc_name, campaign_name)
 
     cursor.execute(f"""UPDATE npc_battle_table
