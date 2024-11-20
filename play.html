@@ -25,6 +25,12 @@
                 console.log(`Update received for different campaign: ${data.campaign}`);
             }
         });
+
+        // Emit an event to update the field
+        function updateField() {
+            socket.emit('update_field', {});
+        }
+
     </script>
 
     <form action="/play_submit" method="post" style="display:inline;">
