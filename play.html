@@ -11,12 +11,10 @@
     <h2>{{username}}'s View:</h2>
     <pre id="fieldValue">{{ field_value }}</pre>
 
+    <button onclick="updateField()">Update</button><br><br>
     <script>
         // Connect to the SocketIO server
         const socket = io();
-
-        // Dynamically pass the campaign value from the server-rendered template
-        const campaign = "{{campaign}}";
 
         // Listen for updates from the server
         socket.on('field_updated', (data) => {
@@ -27,19 +25,6 @@
                 console.log(`Update received for different campaign: ${data.campaign}`);
             }
         });
-
-        // Emit an event to update the field
-        function updateField() {
-            const character_name = document.getElementById('character_name').value;
-            const current_health = document.getElementById('current_health').value;
-            const initiative = document.getElementById('initiative').value;
-            socket.emit('update_field', {
-                character_name: character_name,
-                current_health: current_health,
-                initiative: initiative,
-                campaign: campaign
-            });
-        }
     </script>
 
     <form action="/play_submit" method="post" style="display:inline;">

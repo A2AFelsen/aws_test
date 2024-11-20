@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Menu</title>
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Elorya</h1>
+    <h2>mike's View:</h2>
+    <pre id="fieldValue">Zombie_7 is at 1 HP. (Initiative: 7)
+<font color="red">*Avol is at 5 HP. (Initiative: 6)* </font>
+Zombie_6 is at 1 HP. (Initiative: 6)
+Zombie_5 is at 1 HP. (Initiative: 5)
+Zombie_4 is at 1 HP. (Initiative: 4)
+*Neave is at 20 HP. (Initiative: 3)*
+Zombie_3 is at 1 HP. (Initiative: 3)
+Zombie_2 is at 1 HP. (Initiative: 2)
+*Felsen is at 0 HP. (Initiative: 1)*
+Zombie_1 is at 1 HP. (Initiative: 1)
+*Braids is at 8 HP. (Initiative: 0)*
+</pre>
+
+    <input type="text" id="character_name" placeholder="Enter Character/NPC">
+    <input type="text" id="current_health" placeholder="Enter New Health">
+    <input type="text" id="initiative" placeholder="Enter New Initiative">
+    <button onclick="updateField()">Update Character</button><br><br>
+    <input type="text" id="new_npc" placeholder="Enter NPC">
+    <button onclick="updateField()">Add NPC</button><br><br>
+
+    <script>
+        // Connect to the SocketIO server
+        const socket = io();
+
+        // Dynamically pass the campaign value from the server-rendered template
+        const campaign = "Elorya";
+
+        // Listen for updates from the server
+        socket.on('field_updated', (data) => {
+            if (data.campaign === campaign) { // Check if the update belongs to the current campaign
+                document.getElementById('fieldValue').textContent = data.new_value;
+                console.log(`Field updated for campaign: ${campaign}`);
+            } else {
+                console.log(`Update received for different campaign: ${data.campaign}`);
+            }
+        });
+
+        // Emit an event to update the field
+        function updateField() {
+            const character_name = document.getElementById('character_name').value;
+            const current_health = document.getElementById('current_health').value;
+            const initiative = document.getElementById('initiative').value;
+            const new_npc    = document.getElementById('new_npc').value;
+            socket.emit('update_field', {
+                character_name: character_name,
+                current_health: current_health,
+                initiative: initiative,
+                campaign: campaign,
+                new_npc: new_npc
+            });
+
+            document.getElementById('character_name').value = '';
+            document.getElementById('current_health').value = '';
+            document.getElementById('initiative').value = '';
+            document.getElementById('new_npc').value = '';
+        }
+    </script>
+
+    <form action="/play_submit" method="post" style="display:inline;">
+        <button type="submit" name="action" value="main_menu">Return to Main Menu</button>
+        <input type="hidden" name="username" value="mike">
+    </form>
+
+</body>
+</html>
