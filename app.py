@@ -175,7 +175,7 @@ def handle_update_field(data):
     new_npc = data.get("new_npc")
     action = request.form.get("action")
     play.update_character(campaign, character_name, current_health, initiative)
-    if new_npc and not character_name:
+    if new_npc:
         play.add_npc(new_npc, campaign)
     new_value = play.print_battle(campaign)
 
