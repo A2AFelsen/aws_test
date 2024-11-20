@@ -20,9 +20,9 @@ def print_battle(campaign):
         current_health = combatant[1]
         initiative = combatant[2]
         if "_" in character_name:
-            msg += f'<font color="olive"> {character_name} is at {current_health} HP. (Initiative: {initiative})</font>\n'
+            msg += f'<p style="color: olive"> {character_name} is at {current_health} HP. (Initiative: {initiative})</p>\n'
         else:
-            msg += f'<font color="red">{character_name} is at {current_health} HP. (Initiative: {initiative})</font>\n'
+            msg += f'<p style="color: red">{character_name} is at {current_health} HP. (Initiative: {initiative})</p>\n'
     return msg
 
 
