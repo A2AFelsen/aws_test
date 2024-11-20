@@ -298,7 +298,17 @@ def add_npc_to_battle(npc_name, campaign_name):
 
 
 def remove_npc_from_battle(npc_name, campaign_name):
-    pass
+    conn = sqlite3.connect(DND_DB)
+    cursor = conn.cursor()
+
+    npc_data = cursor.execute(f"""DELETE 
+                                  FROM npc_battle_table
+                                  WHERE npc_name = '{npc_name}'
+                                  AND campaign_name = '{campaign_name}'                         
+                                  """).fetchone()
+
+    conn.commit()
+    conn.close()
 
 
 def get_combatants(campaign_name):
@@ -333,6 +343,9 @@ def update_npc(campaign_name, npc_name, current_health, initiative):
         current_health = int(npc_data[2])
     if initiative == "":
         initiative = int(npc_data[3])
+
+    if current_health <= 0:
+        remove_npc_from_battle(npc_name, campaign_name)
 
     cursor.execute(f"""UPDATE npc_battle_table
                        SET (current_health, initiative) = ({int(current_health)}, {int(initiative)}) 
