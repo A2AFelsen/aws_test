@@ -337,9 +337,7 @@ def update_npc(campaign_name, npc_name, current_health, initiative):
                                   """).fetchone()
 
     if not npc_data:
-        output, msg = add_npc_to_battle(npc_name, campaign_name)
-        print(msg)
-        return output
+        return False
 
     if current_health == "":
         current_health = int(npc_data[2])
