@@ -24,7 +24,7 @@ def print_battle(campaign):
             msg += f'{character_name} is at {current_health} HP. (Initiative: {initiative})\n'
         else:
             #msg += f'<p style="color: red">{character_name} is at {current_health} HP. (Initiative: {initiative})</p>\n'
-            msg += f'{character_name} is at {current_health} HP. (Initiative: {initiative})\n'
+            msg += f'*{character_name} is at {current_health} HP. (Initiative: {initiative})*\n'
     return msg
 
 
