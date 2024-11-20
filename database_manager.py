@@ -338,6 +338,7 @@ def update_npc(campaign_name, npc_name, current_health, initiative):
 
     if not npc_data:
         output, msg = add_npc_to_battle(npc_name, campaign_name)
+        print(msg)
         return output
 
     if current_health == "":
