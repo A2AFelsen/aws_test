@@ -16,7 +16,7 @@
     <input type="text" id="initiative" placeholder="Enter New Initiative">
     <button name = "action"  value = "update_character" onclick="updateField()">Update Character</button><br><br>
     <input type="text" id="new_npc" placeholder="Enter NPC">
-    <button name = "action"  value = "add_npc" onclick="updateField()">Add NPC</button><br><br>
+    <button id= "add_npc" name = "action"  value = "add_npc" onclick="updateField()">Add NPC</button><br><br>
 
     <script>
         // Connect to the SocketIO server
@@ -46,7 +46,6 @@
                 current_health: current_health,
                 initiative: initiative,
                 campaign: campaign,
-                new_npc: new_npc
             });
         }
     </script>
