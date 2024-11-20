@@ -27,5 +27,5 @@ def update_character(campaign_name, character_name, current_health, initiative):
     return database_manager.update_character(campaign_name, character_name, current_health, initiative)
 
 
-def new_npc(npc_name, campaign_name):
+def add_npc(npc_name, campaign_name):
     return database_manager.add_npc_to_battle(npc_name, campaign_name)
