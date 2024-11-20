@@ -16,6 +16,9 @@
         // Connect to the SocketIO server
         const socket = io();
 
+        // Dynamically pass the campaign value from the server-rendered template
+        const campaign = "{{campaign}}";
+
         // Listen for updates from the server
         socket.on('field_updated', (data) => {
             if (data.campaign === campaign) { // Check if the update belongs to the current campaign
@@ -28,10 +31,23 @@
 
         // Emit an event to update the field
         function updateField() {
-            socket.emit('update_field', {});
-        }
+            const character_name = ''
+            const current_health = ''
+            const initiative = ''
+            const new_npc    = ''
+            socket.emit('update_field', {
+                character_name: character_name,
+                current_health: current_health,
+                initiative: initiative,
+                campaign: campaign,
+                new_npc: new_npc
+            });
 
-    </script>
+            document.getElementById('character_name').value = '';
+            document.getElementById('current_health').value = '';
+            document.getElementById('initiative').value = '';
+            document.getElementById('new_npc').value = '';
+        }t>
 
     <form action="/play_submit" method="post" style="display:inline;">
         <button type="submit" name="action" value="main_menu">Return to Main Menu</button>
