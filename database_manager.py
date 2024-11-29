@@ -89,7 +89,8 @@ def check_npc_battle_table():
             npc_name       TEXT,
             campaign_name  TEXT,
             current_health INT,
-            initiative     INT
+            initiative     INT,
+            PRIMARY KEY(npc_name, campaign_name)
         )
     ''')
     conn.commit()
