@@ -275,6 +275,18 @@ def add_new_npc(npc_name, max_health):
     return True, msg
 
 
+def name_new_npc_to_battle(npc_tuple):
+    i = 0
+    for entry in npc_tuple:
+        npc_name = entry[0].split("_")[0]
+        npc_num = entry[0].split("_")[1]
+        if i != npc_num:
+            return f"{npc_name}_{i}"
+        else:
+            i += 1
+    return f"{npc_name}_{i}"
+
+
 def add_npc_to_battle(npc_name, campaign_name):
     check_all_tables()
     conn = sqlite3.connect(DND_DB)
@@ -285,7 +297,7 @@ def add_npc_to_battle(npc_name, campaign_name):
         msg = f"NPC '{npc_name} Not Found. Try Adding it first!"
         return False, msg
     output = cursor.execute(f"SELECT * FROM npc_battle_table WHERE npc_name LIKE '{npc_name}%' AND campaign_name='{campaign_name}'").fetchall()
-    npc_name_num = npc_name + "_" + str(len(output))
+    npc_name_num = name_new_npc_to_battle(output)
     try:
         cursor.execute(f"INSERT INTO npc_battle_table VALUES ('{npc_name_num}', '{campaign_name}', {npc_health}, 0)")
     except sqlite3.IntegrityError:
