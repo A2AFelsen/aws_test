@@ -276,10 +276,12 @@ def add_new_npc(npc_name, max_health):
 
 
 def name_new_npc_to_battle(npc_tuple):
+    if not npc_tuple:
+        return False
     i = 0
     for entry in npc_tuple:
         npc_name = entry[0].split("_")[0]
-        npc_num = entry[0].split("_")[1]
+        npc_num = int(entry[0].split("_")[1])
         if i != npc_num:
             return f"{npc_name}_{i}"
         else:
@@ -298,6 +300,8 @@ def add_npc_to_battle(npc_name, campaign_name):
         return False, msg
     output = cursor.execute(f"SELECT * FROM npc_battle_table WHERE npc_name LIKE '{npc_name}%' AND campaign_name='{campaign_name}'").fetchall()
     npc_name_num = name_new_npc_to_battle(output)
+    if not npc_name_num:
+        npc_name_num = f"{npc_name}_0"
     try:
         cursor.execute(f"INSERT INTO npc_battle_table VALUES ('{npc_name_num}', '{campaign_name}', {npc_health}, 0)")
     except sqlite3.IntegrityError:
