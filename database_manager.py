@@ -299,7 +299,7 @@ def add_npc_to_battle(npc_name, campaign_name):
     if not output:
         msg = f"NPC '{npc_name} Not Found. Try Adding it first!"
         return False, msg
-    output = cursor.execute(f"SELECT * FROM npc_battle_table WHERE npc_name LIKE '{npc_name}%' AND campaign_name='{campaign_name}'").fetchall()
+    output = cursor.execute(f"SELECT * FROM npc_battle_table WHERE npc_name LIKE '{npc_name}_%' AND campaign_name='{campaign_name}'").fetchall()
     npc_name_num = name_new_npc_to_battle(output)
     if not npc_name_num:
         npc_name_num = f"{npc_name}_0"
