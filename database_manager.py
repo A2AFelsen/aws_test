@@ -295,10 +295,10 @@ def add_npc_to_battle(npc_name, campaign_name):
     conn = sqlite3.connect(DND_DB)
     cursor = conn.cursor()
     output = cursor.execute(f"SELECT * FROM npc_table WHERE npc_name ='{npc_name}'").fetchone()
-    npc_health = int(output[1])
     if not output:
         msg = f"NPC '{npc_name} Not Found. Try Adding it first!"
         return False, msg
+    npc_health = int(output[1])
     output = cursor.execute(f"SELECT * FROM npc_battle_table WHERE npc_name LIKE '{npc_name}_%' AND campaign_name='{campaign_name}'").fetchall()
     npc_name_num = name_new_npc_to_battle(output)
     if not npc_name_num:
